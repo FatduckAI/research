@@ -10,9 +10,10 @@ export async function generateStaticParams() {
 export default async function BlogPost({
   params
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const post = await getPostBySlug(params.slug)
+  const slug = (await params).slug
+  const post = await getPostBySlug(slug)
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
